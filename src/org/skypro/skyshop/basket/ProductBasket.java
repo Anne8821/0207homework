@@ -23,28 +23,10 @@ public class ProductBasket {
         int total = 0;
         for (Product product : products) {
             if (product != null) {
-                total += product.getPrice() * product.getQuantity();
+                total += product.getPrice();
             }
         }
         return total;
-    }
-
-    public void BasketContents() {
-        boolean empty = true;
-        int totalCost = 0;
-
-        for (Product product : products) {
-            if (product != null) {
-                System.out.println(product.getName() + ": " + (int) (product.getPrice() * product.getQuantity()));
-                empty = false;
-            }
-        }
-
-        if (empty) {
-            System.out.println("В корзине пусто");
-        } else {
-            System.out.println("Итого: " + getTotalCost());
-        }
     }
 
     public boolean containsProduct(String name) {

@@ -22,17 +22,17 @@ public class App {
         basket.addProduct(product6);
         //проверить надпись о невозможно добавить в корзину
 
-    //   basket.printBasket();
+       basket.printBasket();
 
-    //    System.out.println("Общая стоимость: " + basket.getTotalCost());
+        System.out.println("Общая стоимость: " + basket.getTotalCost());
 
-    //    System.out.println("Есть ли в корзине 'Платье'? " + basket.containsProduct("Платье"));
+        System.out.println("Есть ли в корзине 'Платье'? " + basket.containsProduct("Платье"));
 
-    //    System.out.println("Есть ли 'Туфли' в пустой корзине? " + basket.containsProduct("Туфли"));
+        System.out.println("Есть ли 'Туфли' в пустой корзине? " + basket.containsProduct("Туфли"));
 
-    //   basket.clear();
+       basket.clear();
 
-    //    System.out.println("Общая стоимость после очистки: " + basket.getTotalPrice());
+        System.out.println("Общая стоимость после очистки: " + basket.getTotalPrice());
 
     }
 }
