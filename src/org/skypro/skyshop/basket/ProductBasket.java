@@ -6,58 +6,62 @@ public class ProductBasket {
     private final Product[] products = new Product[5];
 
     public void addProduct(Product product) {
-        boolean addendumProduct = false;
+        boolean added = false;
         for (int i = 0; i < products.length; i++) {
             if (products[i] == null) {
                 products[i] = product;
-                addendumProduct = true;
+                added = true;
                 break;
             }
         }
-        if (!addendumProduct) {
-            System.out.println("Невозможно добавить продукт");
+        if (!added) {
+            System.out.println("Корзина полна, невозможно добавить товар: " + product.getName());
         }
     }
 
     public int getTotalCost() {
         int total = 0;
-        for (Product product : products) {
-            if (product != null) {
-                total += product.getPrice();
-            }
+        for (Product p : products) {
+            if (p != null) total += p.getPrice();
         }
         return total;
     }
 
     public boolean containsProduct(String name) {
-        for (Product product : products) {
-            if (product != null && product.getName().equals(name)) {
+        for (Product p : products) {
+            if (p != null && p.getName().equals(name)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void clear() {
-        for (int i = 0; i < products.length; i++) {
-            products[i] = null;
-        }
-    }
-
     public void printBasket() {
+        int totalPrice = 0;
+        int specialCount = 0;
         boolean empty = true;
-        for (Product product : products) {
-            if (product != null) {
-                System.out.println(product.getName() + " - " + product.getPrice());
+
+        for (Product p : products) {
+            if (p != null) {
+                System.out.println(p.toString());
+                totalPrice += p.getPrice();
+                if (p.isSpecial()) {
+                    specialCount++;
+                }
                 empty = false;
             }
         }
         if (empty) {
             System.out.println("Корзина пуста");
+        } else {
+            System.out.println("Итого: " + totalPrice);
+            System.out.println("Специальных товаров: " + specialCount);
         }
     }
 
-    public String getTotalPrice() {
-        return Integer.toString(getTotalCost());
+    public void clear() {
+        for (int i = 0; i < products.length; i++) {
+            products[i] = null;
+        }
     }
 }
