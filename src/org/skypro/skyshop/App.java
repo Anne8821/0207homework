@@ -2,6 +2,11 @@ package org.skypro.skyshop;
 
 import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.product.Article;
+import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
+
+import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) {
@@ -14,7 +19,7 @@ public class App {
    //     Product product6 = new SimpleProduct("Очки", 1299);
 
         Product discountProduct = new DiscountedProduct("Кроссовки со скидкой", 10000, 20);
-        Product fixPriceProduct = new FixPriceProduct("Книга");
+        Product fixPriceProduct = new FixPriceProduct("Журнал о моде");
 
         // Создаем корзину
         ProductBasket basket = new ProductBasket();
@@ -30,6 +35,23 @@ public class App {
       //  basket.addProduct(product5);
     //    basket.addProduct(product6); // добавление после заполнения корзины не происходит
 
+        Article article1 = new Article("Очки", "Как сочетать очки с Вашим образом");
+        Article article2 = new Article("Обувь", "Угги все еще в моде?");
+
+        SearchEngine searchEngine = new SearchEngine(20);
+        searchEngine.add(discountProduct);
+        searchEngine.add(fixPriceProduct);
+        searchEngine.add(article1);
+        searchEngine.add(article2);
+
+        System.out.println("Результаты поиска по Очки: ");
+        System.out.println(Arrays.toString(searchEngine.search("Очки")));
+        System.out.println("Результаты поиска по Статья: ");
+        System.out.println(Arrays.toString(searchEngine.search("Статья")));
+        System.out.println("Результаты поиска по Обувь: ");
+        System.out.println(Arrays.toString(searchEngine.search("Обувь")));
+
+        System.out.println("Содержимое корзины: ");
         // Выводим содержимое корзины
         basket.printBasket();
 
