@@ -1,11 +1,24 @@
 package org.skypro.skyshop.product;
 
-public abstract class SimpleProduct extends Product {
-    private int price;
+public class SimpleProduct extends Product {
+    private final String name;
+    private final int price;
 
     public SimpleProduct(String name, int price){
-        super(name);
+        super();
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Название продукта не может быть пустым");
+        }
+        if (price <= 0) {
+            throw new IllegalArgumentException("Цена должна быть положительной");
+        }
+        this.name = name;
         this.price = price;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -21,5 +34,15 @@ public abstract class SimpleProduct extends Product {
     @Override
     public boolean isSpecial() {
         return false;
+    }
+
+    @Override
+    public String getContactType() {
+        return "";
+    }
+
+    @Override
+    public String getStringRepresentation() {
+        return ("Продукт: " + name + ", Цена: " + price + " руб.");
     }
 }

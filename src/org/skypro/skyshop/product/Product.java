@@ -5,7 +5,10 @@ import org.skypro.skyshop.search.Searchable;
 public abstract class Product implements Searchable {
     private String name;
 
-    public Product(String name) {
+    public Product() {
+        if (name == null || name.isBlank()){
+            throw new IllegalArgumentException("Название продукта не может быть пустым или null");
+        }
         this.name = name;
     }
 
@@ -34,10 +37,4 @@ public abstract class Product implements Searchable {
 
     public abstract String getContactType();
 
-//    public abstract int getPrice();
-
-//    @Override
-//    public abstract String toString();
-
-//    public abstract boolean isSpecial();
 }

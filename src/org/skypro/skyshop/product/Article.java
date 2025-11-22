@@ -2,22 +2,7 @@ package org.skypro.skyshop.product;
 
 import org.skypro.skyshop.search.Searchable;
 
-public final class Article implements Searchable {
-    private final String title;
-    private final String text;
-
-    public Article(String title, String text) {
-        this.title = title;
-        this.text = text;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getText() {
-        return text;
-    }
+public record Article(String title, String text) implements Searchable {
 
     @Override
     public String toString() {
@@ -37,5 +22,15 @@ public final class Article implements Searchable {
     @Override
     public String getName() {
         return title;
+    }
+
+    @Override
+    public int getPrice() {
+        return 0;
+    }
+
+    @Override
+    public boolean isSpecial() {
+        return false;
     }
 }
