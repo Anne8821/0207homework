@@ -1,32 +1,27 @@
 package org.skypro.skyshop.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SearchEngine {
-    private Searchable[] items;
+    private final List<Searchable> items;
 
     public SearchEngine(int capacity) {
-        this.items = new Searchable[capacity];
+        this.items = new ArrayList<>(capacity);
     }
 
     public void add(Searchable item) {
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] == null) {
-                items[i] = item;
-                return;
-            }
+        if (items != null) {
+            items.add(item);
         }
-        System.out.println("Поисковик заполнен, добавить дополнительные элементы невозможно: " + item.getName());
+ //       System.out.println("Поисковик заполнен, добавить дополнительные элементы невозможно: " + item.getName());
     }
 
-    public Searchable[] search(String searchTerm) {
-        Searchable[] results = new Searchable[5];
-        int count = 0;
+    public List<Searchable> search(String searchTerm) {
+        List<Searchable> results = new ArrayList<>();
         for (Searchable item : items) {
             if (item != null && item.getSearchTerm().toLowerCase().contains(searchTerm.toLowerCase())) {
-                results[count] = item;
-                count++;
-                if (count == 5) {
-                    break;
-                }
+                results.add(item);
             }
         }
         return results;
@@ -34,7 +29,7 @@ public class SearchEngine {
 
     public Searchable findBestMatch(String search) throws BestResultNotFound {
         if (search == null || search.isBlank()) {
-            throw new BestResultNotFound((search));
+            throw new BestResultNotFound(("Результат не найдет"));
         }
 
         Searchable bestMatch = null;
@@ -46,7 +41,7 @@ public class SearchEngine {
                 String searchLower = search.toLowerCase();
 
                 int count = countSubstringOccurrences(searchTermLower, searchLower);
-                if (count <= maxCount) {
+                if (count > maxCount) {
                     maxCount = count;
                     bestMatch = item;
                 }
@@ -54,7 +49,7 @@ public class SearchEngine {
         }
 
         if (bestMatch == null || maxCount == 0) {
-            throw new BestResultNotFound(search);
+            throw new BestResultNotFound("Нет подходящих результатов");
         }
         return bestMatch;
     }

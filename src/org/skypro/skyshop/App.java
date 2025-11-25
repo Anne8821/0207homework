@@ -7,7 +7,7 @@ import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -86,12 +86,23 @@ public class App {
             System.out.println(e.getMessage());
         }
 
+        Searchable[] results = searchEngine.search("Очки").toArray(new Searchable[0]);
         System.out.println("Результаты поиска по Очки: ");
-        System.out.println(Arrays.toString(searchEngine.search("Очки")));
+        for (Searchable result : results) {
+            System.out.println(result);
+        }
+
+        results = searchEngine.search("Статья").toArray(new Searchable[0]);
         System.out.println("Результаты поиска по Статья: ");
-        System.out.println(Arrays.toString(searchEngine.search("Статья")));
+        for (Searchable result : results) {
+            System.out.println(result);
+        }
+
+        results = searchEngine.search("Обувь").toArray(new Searchable[0]);
         System.out.println("Результаты поиска по Обувь: ");
-        System.out.println(Arrays.toString(searchEngine.search("Обувь")));
+        for (Searchable result : results) {
+            System.out.println(result);
+        }
 
         System.out.println("Содержимое корзины: ");
         // Выводим содержимое корзины
@@ -99,6 +110,29 @@ public class App {
 
         // Общая стоимость
         System.out.println("Общая стоимость: " + basket.getTotalCost());
+
+        System.out.println("Удаление продукта Платье");
+        List<Product> removed = basket.removeProductsByName("Платье");
+        if (removed.isEmpty()) {
+            System.out.println("Продукт Платье не найден для удаления");
+        } else {
+            System.out.println("Удаленные продукты");
+            for (Product p : removed) {
+                System.out.println(p);
+            }
+        }
+
+        System.out.println("Содержимое корзины после удаления");
+        basket.printBasket();
+
+        System.out.println("Попытка удалить несуществующих продукт Куртка");
+        List<Product> removedNonExistent = basket.removeProductsByName("Куртка");
+        if (removedNonExistent.isEmpty()) {
+            boolean p = false;
+            System.out.println(p);
+        }
+        System.out.println("Содержимое корзины после попытки удаления несуществующего продукта:");
+        basket.printBasket();
 
         // Проверка наличия товаров
   //      System.out.println("Есть ли в корзине 'Платье'? " + basket.containsProduct("Платье"));
