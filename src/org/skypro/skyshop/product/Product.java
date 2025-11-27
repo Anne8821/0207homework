@@ -12,12 +12,21 @@ public abstract class Product implements Searchable {
         this.name = name;
     }
 
-    public Product() {
-
-    }
-
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Product product = (Product) object;
+        return name != null ? name.equals(product.name) : product.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 
     @Override

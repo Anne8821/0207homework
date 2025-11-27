@@ -48,7 +48,6 @@ public class App {
         Product discountProduct = new DiscountedProduct("Кроссовки со скидкой", 10000, 20);
         Product fixPriceProduct = new FixPriceProduct("Журнал о моде");
 
-        // Создаем корзину
         ProductBasket basket = new ProductBasket();
 
         // Добавляем товары
@@ -58,14 +57,12 @@ public class App {
         // basket.addProduct(product4);
         basket.addProduct(discountProduct);
         basket.addProduct(fixPriceProduct);
-        // Попытка добавить 6-й товар - корзина полна
         // basket.addProduct(product5);
-        // basket.addProduct(product6); // добавление после заполнения корзины не происходит
+        // basket.addProduct(product6);
 
         Article article1 = new Article("Очки", "Как сочетать очки с Вашим образом");
         Article article2 = new Article("Обувь", "Угги все еще в моде?");
 
-        // Используем конструктор без аргументов
         SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(discountProduct);
         searchEngine.add(fixPriceProduct);
@@ -86,29 +83,28 @@ public class App {
             System.out.println(e.getMessage());
         }
 
-        Searchable[] results = searchEngine.search("Очки").values().toArray(new Searchable[0]);
+        Searchable[] results = searchEngine.search("Очки").toArray(new Searchable[0]);
         System.out.println("Результаты поиска по Очки: ");
         for (Searchable result : results) {
             System.out.println(result);
         }
 
-        results = searchEngine.search("Статья").values().toArray(new Searchable[0]);
+        results = searchEngine.search("Статья").toArray(new Searchable[0]);
         System.out.println("Результаты поиска по Статья: ");
         for (Searchable result : results) {
             System.out.println(result);
         }
 
-        Map<String, Searchable> resultsMap = searchEngine.search("Обувь");
+        Map<String, Searchable> resultsMap = (Map<String, Searchable>) searchEngine.search("Обувь");
         System.out.println("Результаты поиска по Обувь:");
         for (Map.Entry<String, Searchable> entry : resultsMap.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue().getStringRepresentation());
         }
 
         System.out.println("Содержимое корзины: ");
-        // Выводим содержимое корзины
         basket.printBasket();
 
-        // Общая стоимость
+
         System.out.println("Общая стоимость: " + basket.getTotalCost());
 
         System.out.println("Удаление продукта Платье");
@@ -133,11 +129,9 @@ public class App {
         System.out.println("Содержимое корзины после попытки удаления несуществующего продукта:");
         basket.printBasket();
 
-        // Проверка наличия товаров
         // System.out.println("Есть ли в корзине 'Платье'? " + basket.containsProduct("Платье"));
         // System.out.println("Есть ли 'Туфли' в корзине? " + basket.containsProduct("Туфли"));
 
-        // Очистка корзины
         // basket.clear();
 
         // System.out.println("После очистки:");

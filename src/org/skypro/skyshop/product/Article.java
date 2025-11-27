@@ -33,4 +33,12 @@ public record Article(String title, String text) implements Searchable {
     public boolean isSpecial() {
         return false;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Article article = (Article) object;
+        return title != null ? title.equals(article.title) : article.title == null;
+    }
 }

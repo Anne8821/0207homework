@@ -5,7 +5,7 @@ public class SimpleProduct extends Product {
     private final int price;
 
     public SimpleProduct(String name, int price){
-        super();
+        super(name);
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Название продукта не может быть пустым");
         }

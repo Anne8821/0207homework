@@ -4,7 +4,7 @@ public class FixPriceProduct extends Product {
     private static final int FIXED_PRICE = 5000;
 
     public FixPriceProduct(String name) {
-        super();
+        super(name);
     }
 
     @Override
