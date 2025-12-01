@@ -2,10 +2,7 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ProductBasket {
     private final Map<String, List<Product>> productsMap = new HashMap<>();
@@ -25,13 +22,10 @@ public class ProductBasket {
     }
 
     public int getTotalCost() {
-        int total = 0;
-        for (List<Product> list : productsMap.values()) {
-            for (Product p : list) {
-                total += p.getPrice();
-            }
-        }
-        return total;
+        return productsMap.values().stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
     }
 
     public boolean containsProduct(String name) {
@@ -44,18 +38,19 @@ public class ProductBasket {
             return;
         }
 
-        int totalPrice = 0;
-        int specialCount = 0;
+        int totalPrice = productsMap.values().stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
 
-        for (Map.Entry<String, List<Product>> entry : productsMap.entrySet()) {
-            for (Product p : entry.getValue()) {
-                System.out.println(p);
-                totalPrice += p.getPrice();
-                if (p.isSpecial()) {
-                    specialCount++;
-                }
-            }
-        }
+        long specialCount = productsMap.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
+
+        productsMap.values().stream()
+                .flatMap(Collection::stream)
+                .forEach(System.out::println);
 
         System.out.println("Итого: " + totalPrice);
         System.out.println("Специальных товаров: " + specialCount);
